@@ -10,10 +10,19 @@ public class UserService {
     UserDao userDao = new UserDaoImp();
 
     public void addUser(String username, String fname,String lname, int age, String password) throws UserException {
+        if (userDao.getUsers().contains(new User(username))){
+            throw new UserDataException("User already exist");
+        }
+        if (username == null || password == null){
+            throw new InputDataUserException("Enter at least your username and password");
+        }
         userDao.saveUser(new User(username,fname,lname,age,password));
     }
 
     public List<User> getUsers() throws UserException {
+        if (userDao.getUsers().isEmpty()){
+            throw new UserDataException("There are no registered users in the system!");
+        }
         return userDao.getUsers();
     }
 
