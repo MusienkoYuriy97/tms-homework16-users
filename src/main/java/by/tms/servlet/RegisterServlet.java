@@ -12,6 +12,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
+    private UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
@@ -24,9 +26,8 @@ public class RegisterServlet extends HttpServlet {
         }
         String password = req.getParameter("password");
 
-        UserService userService = new UserService();
         try {
-            userService.addUser(username,fname,lname,age,password);
+            userService.register(username,fname,lname,age,password);
             resp.getWriter().printf("User username:%s is successfully registered.",username);
         } catch (UserException e) {
             resp.getWriter().println(e.getMessage());

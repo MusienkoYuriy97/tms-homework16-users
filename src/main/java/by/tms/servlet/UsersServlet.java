@@ -13,13 +13,14 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/users")
 public class UsersServlet extends HttpServlet {
+    UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService userService = new UserService();
 
         try {
             resp.getWriter().println("List all Users: ");
-            for (User user : userService.getUsers()) {
+            for (User user : userService.getUsersList()) {
                 resp.getWriter().println(user);
             }
         } catch (UserException e) {

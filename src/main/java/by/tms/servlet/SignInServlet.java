@@ -12,13 +12,12 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/signIn")
 public class SignInServlet extends HttpServlet {
+    private UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-
-        UserService userService = new UserService();
 
         try {
             userService.signIn(username,password);
